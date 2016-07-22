@@ -1,0 +1,58 @@
+{% macro message(msg) -%}
+  <div class="message">
+    <dt>
+      <span>
+        <img class="avatar" src={% if msg.avatar_url %}"{{msg.avatar_url}}" {% else %} "{{ url_for('static', filename='groupme.jpg') }}"{% endif %}/>
+        <a href="/groups/{{msg.group_id}}/members/{{msg.user_id}}">{{ msg.name | safe }}</a> |
+        <a href="/groups/{{msg.group_id}}?msg_id={{msg.id}}">Jump To Message</a> |
+        <span class="likes">
+          <span style="color:red" class="glyphicon glyphicon-heart"></span>
+          <span class="badge">{{msg.likes | length}}</span>
+        </span>
+        <div class="tooltip_template">
+          {% for id in msg.likes %}
+            <a title="{{id | member_nickname}}" class="liked" href="/groups/{{msg.group_id}}/members/{{id}}"><img class="avatar" src="{{id | member_avatar}}"/></a>
+          {% endfor %}
+        </div>
+      </span>
+    </dt>
+    <dd title="{{msg.created_at}}">
+      <p>{{ msg.message |safe }}</p>
+    </dd>
+  </div>
+{%- endmacro %}
+
+{% macro message_list(msgs) -%}
+    {% for msg in msgs %}
+      {{message(msg)}}
+   {% endfor %}
+{%- endmacro %}
+
+{% macro member(mbr) -%}
+    <li class="member">
+      <img class="avatar" src={% if mbr.avatar %}"{{mbr.avatar}}" {% else %} "{{ url_for('static', filename='groupme.jpg') }}"{% endif %}/>
+      <a href="/groups/{{mbr.group_id}}/members/{{mbr.user_id}}">{{ mbr.nickname | safe }}</a>
+    </li>
+{%- endmacro %}
+
+{% macro member_list(mbr_list) -%}
+    {% for mbr in mbr_list %}
+      {{member(mbr)}}
+   {% endfor %}
+{%- endmacro %}
+
+{% macro group(group) -%}
+    <li class="member">
+      <img class="avatar" src={% if group.image_url %}"{{group.image_url}}" {% else %} "{{ url_for('static', filename='groupme.jpg') }}"{% endif %}/>
+      <a href="/groups/{{group.id}}">{{ group.name | safe }}</a>
+    </li>
+{%- endmacro %}
+
+{% macro group_list(grp_list) -%}
+    {% for grp in grp_list %}
+      {{group(grp)}}
+   {% endfor %}
+{%- endmacro %}
+
+
+

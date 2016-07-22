@@ -1,0 +1,29 @@
+.message .avatar , .member .avatar{
+  border-radius: 50% 50% 50% 50%;
+  width: 50px;
+  height: 50px;
+}
+
+.tooltip_template .avatar{
+  border-radius: 10% 10% 10% 10%;
+  width: 50px;
+  height: 50px;
+}
+
+.header .avatar {
+  border-radius: 10% 10% 10% 10%;
+  width: 100px;
+  height: 100px;
+}
+
+.message {
+  background: white;
+  padding: 10px 0px 10px 0px;
+}
+.message:nth-child(odd) {
+  background: lightblue;
+}
+
+.tooltip_template {
+  display: none;
+}

@@ -1,0 +1,12 @@
+{% extends "layout.html" %}
+{% from 'message.html' import group_list %}
+
+{% block header %}
+<h1>Group List</h1>
+{% endblock %}
+
+{% block body %}
+  <ul class=members>
+    {{group_list(groups)}}
+  </ul>
+{% endblock %}
