@@ -3,7 +3,7 @@
     <dt>
       <span>
         <img class="avatar" src={% if msg.avatar_url %}"{{msg.avatar_url}}" {% else %} "{{ url_for('static', filename='groupme.jpg') }}"{% endif %}/>
-        <a href="/groups/{{msg.group_id}}/members/{{msg.user_id}}">{{ msg.name | safe }}</a> |
+        <a href="/groups/{{msg.group_id}}/members/{{msg.user_id}}">{{ msg.name}}</a> |
         <a href="/groups/{{msg.group_id}}?msg_id={{msg.id}}">Jump To Message</a> |
         <span class="likes">
           <span style="color:red" class="glyphicon glyphicon-heart"></span>
@@ -17,7 +17,7 @@
       </span>
     </dt>
     <dd title="{{msg.created_at}}">
-      <p>{{ msg.message |safe }}</p>
+      <p>{{ msg.message}}</p>
     </dd>
   </div>
 {%- endmacro %}
@@ -31,7 +31,7 @@
 {% macro member(mbr) -%}
     <li class="member">
       <img class="avatar" src={% if mbr.avatar %}"{{mbr.avatar}}" {% else %} "{{ url_for('static', filename='groupme.jpg') }}"{% endif %}/>
-      <a href="/groups/{{mbr.group_id}}/members/{{mbr.user_id}}">{{ mbr.nickname | safe }}</a>
+      <a href="/groups/{{mbr.group_id}}/members/{{mbr.user_id}}">{{ mbr.nickname}}</a>
     </li>
 {%- endmacro %}
 
@@ -44,7 +44,7 @@
 {% macro group(group) -%}
     <li class="member">
       <img class="avatar" src={% if group.image_url %}"{{group.image_url}}" {% else %} "{{ url_for('static', filename='groupme.jpg') }}"{% endif %}/>
-      <a href="/groups/{{group.id}}">{{ group.name | safe }}</a>
+      <a href="/groups/{{group.id}}">{{group.name}}</a>
     </li>
 {%- endmacro %}
 

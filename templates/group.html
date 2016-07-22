@@ -2,22 +2,22 @@
 {% from 'message.html' import message_list %}
 
 {% block header %}
-  <form id="search" action="/groups/{{id | safe}}">
-    <input type="search" name="query" placeholder="Search" value="{{query | safe}}">
-    <input id="date" type="text" name="date" placeholder="Date" value="{{date | safe}}" data-date-start-date="{{start_date}}" data-date-end-date="{{end_date}}">
+  <form id="search" action="/groups/{{id}}">
+    <input type="search" name="query" placeholder="Search" value="{{query}}">
+    <input id="date" type="text" name="date" placeholder="Date" value="{{date}}" data-date-start-date="{{start_date}}" data-date-end-date="{{end_date}}">
     <input type="submit" value="Go">
   </form>
   <h1 class="header">
     <img class="avatar" src="{{group.image_url}}">
     {{group.name}}
   </h1>
-  <a href="/groups/{{id | safe}}/members">Members</a>
+  <a href="/groups/{{id}}/members">Members</a>
 {% endblock %}
 
 {% block body %}
   <dl class=messages>
     {{message_list(messages)}}
   </dl>
-  <a href="/groups/{{id | safe}}?offset={{offset+num}}&num={{num}}{% if query %}&query={{query | safe}}{% endif %}{% if msg_id %}&msg_id={{msg_id | safe}}{% endif %}"><<<</a>
-  <a href="/groups/{{id | safe}}?offset={{offset-num}}&num={{num}}{% if query %}&query={{query | safe}}{% endif %}{% if msg_id %}&msg_id={{msg_id | safe}}{% endif %}">>>></a>
+  <a href="/groups/{{id}}?offset={{offset+num}}&num={{num}}{% if query %}&query={{query}}{% endif %}{% if msg_id %}&msg_id={{msg_id}}{% endif %}"><<<</a>
+  <a href="/groups/{{id}}?offset={{offset-num}}&num={{num}}{% if query %}&query={{query}}{% endif %}{% if msg_id %}&msg_id={{msg_id}}{% endif %}">>>></a>
 {% endblock %}
