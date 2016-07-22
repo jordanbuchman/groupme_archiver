@@ -152,24 +152,12 @@ def handle_update_group_async(group_id, lock):
   thread.daemon = True
   thread.start()
 
-# def handle_add_group(group_id):
-#   lock = threading.Lock()
-#   handle_update_group(group_id,lock)
-#   if group_id not in group_jobs:
-#     schedule.every(1).minutes.do(handle_update_group_async, group_id=group_id, lock=lock)
-#     group_jobs.append(group_id)
-#   else:
-#     print("no new job")
-
-
 cur.execute("SELECT id FROM groups;")
 groups = cur.fetchall()
 for group in groups:
   print(group)
   schedule.every(1).minutes.do(handle_update_group_async, group_id=group['id'], lock=threading.Lock())
   group_jobs.append(group['id'])
-  #time.sleep(60/len(groups))
-  time.sleep(1)
 schedule.run_all()
 schedule.run_continuously()
 
@@ -183,9 +171,6 @@ def add_group(group_id):
   group = groupy.Group.list().filter(id=group_id).first
   if not group:
     return render_template("layout.html", message="Error! Group ID not found."), 404
-  #thread = threading.Thread(target=handle_add_group, args=(group_id,))
-  #thread.daemon = True
-  #thread.start()
   if group_id in group_jobs:
     return render_template("layout.html", message="Error! Group already added.")
   schedule.every(1).minutes.do(handle_update_group_async, group_id=group_id, lock=threading.Lock())
