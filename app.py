@@ -2,7 +2,7 @@ from flask import Flask, request, render_template
 import psycopg2
 from psycopg2.extras import RealDictCursor
 import json
-from datetime import datetime
+from datetime import datetime, timedelta
 import arrow
 import groupy
 import schedule #mrhwick's fork on github
@@ -20,8 +20,23 @@ def json_serial(obj):
         return serial
     raise TypeError ("Type not serializable")
 
+#http://codereview.stackexchange.com/a/37287
+def verbose_timedelta(delta):
+    d = delta.days
+    h, s = divmod(delta.seconds, 3600)
+    m, s = divmod(s, 60)
+    labels = ['day', 'hour', 'minute', 'second']
+    dhms = ['%s %s%s' % (i, lbl, 's' if i != 1 else '') for i, lbl in zip([d, h, m, s], labels)]
+    for start in range(len(dhms)):
+        if not dhms[start].startswith('0'):
+            break
+    for end in range(len(dhms)-1, -1, -1):
+        if not dhms[end].startswith('0'):
+            break
+    return ', '.join(dhms[start:end+1])
+
 app = Flask(__name__,static_url_path='/static')
-#app.debug = True
+app.debug = True
 
 if len(sys.argv) == 4:
   conn = psycopg2.connect(database=sys.argv[1],user=sys.argv[2], password=sys.argv[3])
@@ -176,7 +191,7 @@ def add_group(group_id):
   schedule.every(1).minutes.do(handle_update_group_async, group_id=group_id, lock=threading.Lock())
   group_jobs.append(group_id)
   schedule.run_all()
-  return render_template("layout.html", message="Fetching group history, please wait.")
+  return render_template("layout.html", message="Fetching group history, please wait. <br> Number of messages: {0}. <br> Estimated time for processing: {1}.".format(group.message_count, verbose_timedelta(timedelta(seconds=group.message_count/100*1.1))))
 
 @app.route("/groups/<group_id>/members/<member_id>")
 def member(group_id,member_id):
