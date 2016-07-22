@@ -36,7 +36,7 @@ def verbose_timedelta(delta):
     return ', '.join(dhms[start:end+1])
 
 app = Flask(__name__,static_url_path='/static')
-app.debug = True
+#app.debug = True
 
 if len(sys.argv) == 4:
   conn = psycopg2.connect(database=sys.argv[1],user=sys.argv[2], password=sys.argv[3])
