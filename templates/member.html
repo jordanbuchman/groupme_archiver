@@ -1,5 +1,5 @@
 {% extends "layout.html" %}
-{% from 'message.html' import message_list %}
+{% from 'message.html' import message_list, nav_buttons with context %}
 
 {% block header %}
   <form id="search" action="/groups/{{group_id}}/members/{{id}}">
@@ -18,5 +18,5 @@
     {{message_list(messages)}}
   </ul>
   <a href="/groups/{{group_id}}/members/{{id}}?offset={{offset+num}}&num={{num}}{% if query %}&query={{query}}{% endif %}{% if msg_id %}&msg_id={{msg_id}}{% endif %}"><<<</a>
-  <a href="/groups/{{group_id}}/members/{{id}}?offset={{offset-num if offset-num >= 0 else 0}}&num={{num}}{% if query %}&query={{query}}{% endif %}{% if msg_id %}&msg_id={{msg_id}}{% endif %}">>>></a>
+  <a href="/groups/{{group_id}}/members/{{id}}?offset={{offset-num}}&num={{num}}{% if query %}&query={{query}}{% endif %}{% if msg_id %}&msg_id={{msg_id}}{% endif %}">>>></a>
 {% endblock %}

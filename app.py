@@ -293,7 +293,7 @@ def group(group_id):
   start_date = arrow.get(cur.fetchone()['created_at']).format('MM/DD/YYYY')
 
 
-  return render_template("group.html", messages=data[::-1], group=group, id=group_id, offset=offset, num=num, query=query, msg_id=msg_id, date=date_a.format('MM/DD/YYYY') if date_a else '', start_date=start_date, end_date=end_date)
+  return render_template("group.html", messages=data[::-1], group=group, group_id=group_id, offset=offset, num=num, query=query, msg_id=msg_id, date=date_a.format('MM/DD/YYYY') if date_a else '', start_date=start_date, end_date=end_date)
 
 if __name__ == "__main__":
   app.run()

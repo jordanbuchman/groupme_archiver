@@ -54,5 +54,10 @@
    {% endfor %}
 {%- endmacro %}
 
+{% macro nav_buttons() -%}
+  <a href="/groups/{{group_id}}{% if id %}/members/{{id}}{% endif %}?offset={{offset+num}}&num={{num}}{% if query %}&query={{query}}{% endif %}{% if msg_id %}&msg_id={{msg_id}}{% endif %}"><<<</a>
+  <a href="/groups/{{group_id}}{% if id %}/members/{{id}}{% endif %}?offset={{offset-num}}&num={{num}}{% if query %}&query={{query}}{% endif %}{% if msg_id %}&msg_id={{msg_id}}{% endif %}">>>></a>
+{%- endmacro %}
+
 
 
