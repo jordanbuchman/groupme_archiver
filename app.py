@@ -222,14 +222,18 @@ def member(group_id,member_id):
   print(cur.mogrify("SELECT * FROM members WHERE user_id = %s AND group_id=%s;", (member_id,group_id)))
   member = cur.fetchall()
 
-  cur.execute("SELECT created_at FROM messages WHERE user_id = %s AND group_id=%s ORDER BY created_at DESC LIMIT 1;", (member_id, group_id))
-  end_date = arrow.get(cur.fetchone()['created_at']).format('MM/DD/YYYY')
+  cur.execute("SELECT created_at, id FROM messages WHERE user_id = %s AND group_id=%s AND message ILIKE  '%%' || %s || '%%' ORDER BY created_at DESC LIMIT 1;", (member_id, group_id, query))
+  end = cur.fetchone()
+  end_date = arrow.get(end['created_at']).format('MM/DD/YYYY')
+  end_id = end['id']
 
-  cur.execute("SELECT created_at FROM messages WHERE user_id = %s AND group_id=%s ORDER BY created_at ASC LIMIT 1;", (member_id, group_id))
-  start_date = arrow.get(cur.fetchone()['created_at']).format('MM/DD/YYYY')
+  cur.execute("SELECT created_at, id FROM messages WHERE user_id = %s AND group_id=%s AND message ILIKE  '%%' || %s || '%%' ORDER BY created_at ASC LIMIT 1;", (member_id, group_id, query))
+  start = cur.fetchone()
+  start_date = arrow.get(start['created_at']).format('MM/DD/YYYY')
+  start_id = start['id']
 
 
-  return render_template("member.html", messages=data[::-1],member=(member[0] if len(member) > 0 else {}),id=member_id, offset=offset, num=num, query=query, group_id=group_id, msg_id=msg_id, date=date_a.format('MM/DD/YYYY') if date_a else '', start_date=start_date, end_date=end_date)
+  return render_template("member.html", messages=data[::-1],member=(member[0] if len(member) > 0 else {}),id=member_id, offset=offset, num=num, query=query, group_id=group_id, msg_id=msg_id, date=date_a.format('MM/DD/YYYY') if date_a else '', start_date=start_date, end_date=end_date, start_id=start_id, end_id=end_id)
 
 @app.route("/groups/<group_id>/members")
 def members(group_id):
@@ -286,14 +290,18 @@ def group(group_id):
   cur.execute("SELECT * FROM groups WHERE id = %s;", (group_id,))
   group = cur.fetchone()
 
-  cur.execute("SELECT created_at FROM messages WHERE group_id=%s ORDER BY created_at DESC LIMIT 1;", (group_id,))
-  end_date = arrow.get(cur.fetchone()['created_at']).format('MM/DD/YYYY')
+  cur.execute("SELECT created_at, id FROM messages WHERE group_id=%s AND message ILIKE  '%%' || %s || '%%' ORDER BY created_at DESC LIMIT 1;", (group_id, query))
+  end = cur.fetchone()
+  end_date = arrow.get(end['created_at']).format('MM/DD/YYYY')
+  end_id = end['id']
 
-  cur.execute("SELECT created_at FROM messages WHERE group_id=%s ORDER BY created_at ASC LIMIT 1;", (group_id,))
-  start_date = arrow.get(cur.fetchone()['created_at']).format('MM/DD/YYYY')
+  cur.execute("SELECT created_at, id FROM messages WHERE group_id=%s AND message ILIKE  '%%' || %s || '%%' ORDER BY created_at ASC LIMIT 1;", (group_id, query))
+  start = cur.fetchone()
+  start_date = arrow.get(start['created_at']).format('MM/DD/YYYY')
+  start_id = start['id']
 
 
-  return render_template("group.html", messages=data[::-1], group=group, group_id=group_id, offset=offset, num=num, query=query, msg_id=msg_id, date=date_a.format('MM/DD/YYYY') if date_a else '', start_date=start_date, end_date=end_date)
+  return render_template("group.html", messages=data[::-1], group=group, group_id=group_id, offset=offset, num=num, query=query, msg_id=msg_id, date=date_a.format('MM/DD/YYYY') if date_a else '', start_date=start_date, end_date=end_date, start_id=start_id, end_id=end_id)
 
 if __name__ == "__main__":
   app.run()

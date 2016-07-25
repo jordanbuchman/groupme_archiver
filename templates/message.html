@@ -16,7 +16,7 @@
         </div>
       </span>
     </dt>
-    <dd title="{{msg.created_at}}">
+    <dd class = "msg_text" title="{{msg.created_at}}">
       <p>{{ msg.message}}</p>
     </dd>
   </div>
@@ -55,8 +55,11 @@
 {%- endmacro %}
 
 {% macro nav_buttons() -%}
-  <a href="/groups/{{group_id}}{% if id %}/members/{{id}}{% endif %}?offset={{offset+num}}&num={{num}}{% if query %}&query={{query}}{% endif %}{% if msg_id %}&msg_id={{msg_id}}{% endif %}"><<<</a>
-  <a href="/groups/{{group_id}}{% if id %}/members/{{id}}{% endif %}?offset={{offset-num}}&num={{num}}{% if query %}&query={{query}}{% endif %}{% if msg_id %}&msg_id={{msg_id}}{% endif %}">>>></a>
+  <a title="First Page" href="/groups/{{group_id}}{% if id %}/members/{{id}}{% endif %}?num={{num}}{% if query %}&query={{query}}{% endif %}&msg_id={{start_id}}"><<<</a>
+  <a title="Previous Page" href="/groups/{{group_id}}{% if id %}/members/{{id}}{% endif %}?offset={{offset+num}}&num={{num}}{% if query %}&query={{query}}{% endif %}{% if msg_id %}&msg_id={{msg_id}}{% endif %}"><</a>
+
+  <a title="Next Page" href="/groups/{{group_id}}{% if id %}/members/{{id}}{% endif %}?offset={{offset-num}}&num={{num}}{% if query %}&query={{query}}{% endif %}{% if msg_id %}&msg_id={{msg_id}}{% endif %}">></a>
+  <a title= "Last Page" href="/groups/{{group_id}}{% if id %}/members/{{id}}{% endif %}?offset={{offset-num}}&num={{num}}{% if query %}&query={{query}}{% endif %}&msg_id={{end_id}}">>>></a>
 {%- endmacro %}
 
 
