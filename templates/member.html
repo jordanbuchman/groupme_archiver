@@ -35,6 +35,5 @@
   <ul class=messages>
     {{message_list(messages)}}
   </ul>
-  <a href="/groups/{{group_id}}/members/{{id}}?offset={{offset+num}}&num={{num}}{% if query %}&query={{query}}{% endif %}{% if msg_id %}&msg_id={{msg_id}}{% endif %}"><<<</a>
-  <a href="/groups/{{group_id}}/members/{{id}}?offset={{offset-num}}&num={{num}}{% if query %}&query={{query}}{% endif %}{% if msg_id %}&msg_id={{msg_id}}{% endif %}">>>></a>
+  {{nav_buttons()}}
 {% endblock %}
