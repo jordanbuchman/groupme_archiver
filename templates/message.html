@@ -17,12 +17,12 @@
 #}
 
 {% macro message(msg) -%}
-  <div class="message">
+  <div class="message" id="id{{msg.id}}">
     <dt>
       <span>
         <img class="avatar" src={% if msg.avatar_url %}"{{msg.avatar_url}}" {% else %} "{{ url_for('static', filename='groupme.jpg') }}"{% endif %}/>
         <a href="/groups/{{msg.group_id}}/members/{{msg.user_id}}">{{ msg.name}}</a> |
-        <a href="/groups/{{msg.group_id}}?msg_id={{msg.id}}">Jump To Message</a> |
+        <a href="/groups/{{msg.group_id}}?msg_id={{msg.id}}#id{{msg.id}}">Jump To Message</a> |
         <span class="likes">
           <span style="color:red" class="glyphicon glyphicon-heart"></span>
           <span class="badge">{{msg.likes | length}}</span>
