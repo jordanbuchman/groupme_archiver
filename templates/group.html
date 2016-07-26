@@ -20,16 +20,16 @@
 {% from 'message.html' import message_list, nav_buttons with context %}
 
 {% block header %}
-  <form id="search" action="/groups/{{id}}">
+  <form id="search" action="/groups/{{group_id}}">
     <input type="search" name="query" placeholder="Search" value="{{query}}">
     <input id="date" type="text" name="date" placeholder="Date" value="{{date}}" data-date-start-date="{{start_date}}" data-date-end-date="{{end_date}}">
     <input type="submit" value="Go">
   </form>
   <h1 class="header">
     <img class="avatar" src="{{group.image_url}}">
-    {{group.name}}
+    <a href="/groups/{{group_id}}">{{group.name}}</a>
   </h1>
-  <a href="/groups/{{id}}/members">Members</a>
+  <a href="/groups/{{group_id}}/members">Members</a>
 {% endblock %}
 
 {% block body %}
