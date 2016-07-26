@@ -19,16 +19,16 @@
 {% extends "layout.html" %}
 
 {% block header %}
-  <h1>
+<h1>
     GroupMe Viewer
   </h1>
 {% endblock %}
 
 {% block body %}
-  <a href="/groups">
+<a href="/groups">
     Groups
   </a>
-  <form onSubmit="return addGroup();">
+<form onSubmit="return addGroup();">
     Add Group:
     <select id="id" name="id">
       {% for group in groups %}
@@ -37,12 +37,12 @@
       {% endfor %}
     </select>
     <input type="submit" value="Go">
-  <script>
-    function addGroup(){
-      console.log("hi");
-      var id = $("#id").val();
-      window.location.href = "/add_group/"+id;
-      return false;
-    }
-  </script>
-{% endblock %}
+    <script>
+        function addGroup() {
+            console.log("hi");
+            var id = $("#id").val();
+            window.location.href = "/add_group/" + id;
+            return false;
+        }
+    </script>
+    {% endblock %}

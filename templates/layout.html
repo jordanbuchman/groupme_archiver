@@ -17,65 +17,71 @@
 -->
 
 <!doctype html>
+
 <head>
-  <title>GroupMe Viewer</title>
-  <link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-  <link rel="stylesheet" href="http://cdn.jsdelivr.net/qtip2/3.0.3/jquery.qtip.min.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.1/css/bootstrap-datepicker.min.css">
+    <title>GroupMe Viewer</title>
+    <link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <link rel="stylesheet" href="http://cdn.jsdelivr.net/qtip2/3.0.3/jquery.qtip.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.1/css/bootstrap-datepicker.min.css">
 </head>
+
 <body>
-  {{message}}
-  <div class=page>
-    {% block header %}{% endblock %}
-    {% block body %}{% endblock %}
-  </div>
-  <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
-  <script src="http://cdn.jsdelivr.net/qtip2/3.0.3/jquery.qtip.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.1/js/bootstrap-datepicker.min.js"></script>
-  <script src="{{ url_for('static', filename='autolink.js') }}"></script>
-  <script>
-    $(document).ready(function() {
-      $('.likes').each(function() {
-        $(this).qtip({
-          content: {
-            text: $(this).next('div')
-          },
-          style: {
-              classes: 'qtip-bootstrap'
-            },
-          hide: {
-            delay: 200,
-            fixed: true
-          }
-        });
-      });
-      $('.liked').each(function() {
-        $(this).qtip({
-          style: {
-              classes: 'qtip-bootstrap'
-          }
-        });
-      });
+    {{message}}
+    <div class=page>
+        {% block header %}
+        {% endblock %}
+        {% block body %}
+        {% endblock %}
+    </div>
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+    <script src="http://cdn.jsdelivr.net/qtip2/3.0.3/jquery.qtip.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.1/js/bootstrap-datepicker.min.js"></script>
+    <script src="{{ url_for('static', filename='autolink.js') }}"></script>
+    <script>
+        $(document).ready(function() {
+            $('.likes').each(function() {
+                $(this).qtip({
+                    content: {
+                        text: $(this).next('div')
+                    },
+                    style: {
+                        classes: 'qtip-bootstrap'
+                    },
+                    hide: {
+                        delay: 200,
+                        fixed: true
+                    }
+                });
+            });
+            $('.liked').each(function() {
+                $(this).qtip({
+                    style: {
+                        classes: 'qtip-bootstrap'
+                    }
+                });
+            });
 
-      $("#search").submit(function(){
-        $("input").each(function(index, obj){
-            if($(obj).val() == "") {
-                $(obj).remove();
-            }
+            $("#search").submit(function() {
+                $("input").each(function(index, obj) {
+                    if ($(obj).val() == "") {
+                        $(obj).remove();
+                    }
+                });
+            });
+
+            $('#search #date').datepicker();
+
+            $('.msg_text').each(function() {
+                var that = $(this);
+                var text = that.html();
+                that.html(text.autoLink({
+                    callback: function(url) {
+                        return /\.(gif|png|jpe?g)$/i.test(url) ? '<a href="' + url + '"><img style="max-height: 300px" src="' + url + '"></a>' : null;
+                    }
+                }-- > ));
+            });
         });
-      });
-
-      $('#search #date').datepicker();
-
-      $('.msg_text').each(function() {
-        var that = $(this);
-        var text = that.html();
-        that.html(text.autoLink({callback: function(url){
-          return /\.(gif|png|jpe?g)$/i.test(url) ? '<a href="'+url+'"><img style="max-height: 300px" src="' + url + '"></a>' : null;
-        }}));
-      });
-    });
-  </script>
+    </script>
 </body>
