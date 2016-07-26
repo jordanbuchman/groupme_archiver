@@ -45,3 +45,12 @@
 .tooltip_template {
   display: none;
 }
+
+.nav-buttons {
+   position:fixed;
+   left:0px;
+   bottom:0px;
+   width:100%;
+   background: lightgrey;
+}
+
