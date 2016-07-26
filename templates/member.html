@@ -27,7 +27,7 @@
   </form>
   <h1 class="header">
     <img class="avatar" src={% if member.avatar %}"{{member.avatar}}" {% else %} "{{ url_for('static', filename='groupme.jpg') }}"{% endif %}>
-    {{member.nickname}}
+    <a href="/groups/{{group_id}}/members/{{id}}">{{member.nickname}}</a>
   </h1>
 {% endblock %}
 
