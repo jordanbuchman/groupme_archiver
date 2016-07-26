@@ -26,7 +26,7 @@
     <input type="submit" value="Go">
   </form>
   <h1 class="header">
-    <img class="avatar" src="{{group.image_url}}">
+    <img class="avatar" src={% if group.image_url %}"{{group.image_url}}" {% else %} "{{ url_for('static', filename='groupme.jpg') }}"{% endif %}>
     <a href="/groups/{{group_id}}">{{group.name}}</a>
   </h1>
   <a href="/groups/{{group_id}}/members">Members</a>
