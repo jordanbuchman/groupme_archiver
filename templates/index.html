@@ -37,12 +37,31 @@
       {% endfor %}
     </select>
     <input type="submit" value="Go">
-    <script>
-        function addGroup() {
-            console.log("hi");
-            var id = $("#id").val();
-            window.location.href = "/add_group/" + id;
-            return false;
-        }
-    </script>
-    {% endblock %}
+</form>
+<a href="/members">
+    Members
+  </a>
+<form onSubmit="return addMember();">
+    Add Member:
+    <select id="member_id" name="member_id">
+      {% for member in members %}
+        {% set name,id = member %}
+        <option value="{{id}}">{{name}}</option>
+      {% endfor %}
+    </select>
+    <input type="submit" value="Go">
+</form>
+<script>
+    function addGroup() {
+        var id = $("#id").val();
+        window.location.href = "/add_group/" + id + "?type=group";
+        return false;
+    }
+
+    function addMember() {
+        var id = $("#member_id").val();
+        window.location.href = "/add_group/" + id + "?type=member";
+        return false;
+    }
+</script>
+{% endblock %}
