@@ -29,7 +29,7 @@
         </span>
         <div class="tooltip_template">
           {% for id in msg.likes %}
-            <a title="{{id | member_nickname}}" class="liked" href="/groups/{{msg.group_id}}/members/{{id}}"><img class="avatar" src="{{id | member_avatar}}"/></a>
+            <a title="{{id | member_nickname(msg.group_id)}}" class="liked" href="/groups/{{msg.group_id}}/members/{{id}}"><img class="avatar" src="{{id | member_avatar}}"/></a>
           {% endfor %}
         </div>
       </span>

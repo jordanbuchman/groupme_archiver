@@ -114,8 +114,8 @@ def member_avatar(id):
     return cur.fetchone()['avatar']
 
 
-def member_nickname(id):
-    cur.execute("SELECT nickname FROM members WHERE user_id = %s;", (id,))
+def member_nickname(id,group_id):
+    cur.execute("SELECT nickname FROM members WHERE user_id = %s AND group_id = %s;", (id,group_id))
     return cur.fetchone()['nickname']
 
 app.jinja_env.filters['member_avatar'] = member_avatar
