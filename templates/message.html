@@ -37,6 +37,11 @@
     <dd class="msg_text" title="{{msg.created_at}}">
         <p>
             {{ msg.message}}
+            {% for attachment in msg.attachments %}
+              {% if attachment is image_attachment %}
+                {{attachment | image_attachment_url}}
+              {% endif %}
+            {% endfor %}
         </p>
     </dd>
 </div>

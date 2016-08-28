@@ -126,6 +126,15 @@ app.jinja_env.filters['member_avatar'] = member_avatar
 
 app.jinja_env.filters['member_nickname'] = member_nickname
 
+@app.template_test("image_attachment")
+def is_image_attachment(attachment):
+  return attachment.startswith("Image")
+
+def image_attachment_url(attachment):
+  return attachment.replace("Image(url='","").replace("')","")
+
+app.jinja_env.filters['image_attachment_url'] = image_attachment_url
+
 
 def handle_update_group(group_id, type, lock):
     with lock:
@@ -212,7 +221,7 @@ def handle_update_group(group_id, type, lock):
             cur.executemany("INSERT INTO messages VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s) ON CONFLICT DO NOTHING",
                             [(msg.id,
                               msg.name,
-                              msg.text,
+                              msg.text or '',
                               [str(x) for x in msg.attachments],
                                 msg.avatar_url,
                                 msg.created_at,
@@ -224,7 +233,7 @@ def handle_update_group(group_id, type, lock):
             cur.executemany("INSERT INTO messages VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s) ON CONFLICT DO NOTHING",
                             [(msg.id,
                               msg.name,
-                              msg.text,
+                              msg.text or '',
                               [str(x) for x in msg.attachments],
                                 msg.avatar_url,
                                 msg.created_at,

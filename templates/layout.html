@@ -78,7 +78,7 @@
                 var text = that.html();
                 that.html(text.autoLink({
                     callback: function(url) {
-                        return /\.(gif|png|jpe?g)$/i.test(url) ? '<a href="' + url + '"><img style="max-height: 300px" src="' + url + '"></a>' : null;
+                        return /\.(gif|png|jpe?g)$|https:\/\/i\.groupme\.com\/\d+x\d+\.png\..+/i.test(url) ? '<a href="' + url + '"><img style="max-height: 300px" src="' + url + '"></a>' : null;
                     }
                 }));
             });
