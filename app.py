@@ -180,7 +180,7 @@ def handle_update_group(group_id, type, lock):
                         (me.user_id,
                          me.name,
                          me.image_url,
-                         me.user_id,
+                         group.user_id,
                          me.name,
                          me.image_url)
                         )
