@@ -315,7 +315,7 @@ def add_group(group_id):
     elif type == "member":
         return render_template(
             "layout.html",
-            message="Fetching group history, please wait.")
+            message="Fetching message history, please wait.")
 
 
 @app.route("/groups/<group_id>/members/<member_id>")
