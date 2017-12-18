@@ -30,16 +30,21 @@
 
 .header .avatar {
   border-radius: 10% 10% 10% 10%;
-  width: 100px;
-  height: 100px;
+  width: 70px;
+  height: 70px;
+}
+
+.messages{
+  margin: auto;
 }
 
 .message {
-  background: white;
+  background:#F7F7F7;
   padding: 10px 0px 10px 0px;
 }
+
 .message:nth-child(odd) {
-  background: lightblue;
+  background: #e5f1f6;
 }
 
 .tooltip_template {
@@ -47,10 +52,42 @@
 }
 
 .nav-buttons {
-   position:fixed;
+   position:sticky;
    left:0px;
    bottom:0px;
    width:100%;
    background: lightgrey;
+   font-size: 2rem;
+   z-index:50;
 }
+
+header {
+  position:sticky;
+  left:0px;
+  top:0px;
+  width:100%;
+  background: lightgrey;
+  overflow:auto;
+  padding-bottom:10px;
+  padding-left: 10px;
+  z-index: 50;
+}
+
+.member_list {
+  float:left;
+  font-size: 2rem;
+}
+
+.search {
+  margin-left: 20px;
+  float: left;
+}
+
+#groups_link{
+  font-size:2rem;
+}
+
+
+
+
 
