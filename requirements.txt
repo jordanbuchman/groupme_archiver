@@ -1,5 +1,5 @@
 Flask==0.10.1
 GroupyAPI==0.6.6
 arrow==0.8.0
-psycopg2==2.6.2
+psycopg2==2.7.2
 git+git://github.com/mrhwick/schedule@49dfca3596b2b9af9e395e8f18f39b3443303c15#egg=schedule
